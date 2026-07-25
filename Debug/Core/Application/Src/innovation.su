@@ -1,0 +1,2 @@
+../Core/Application/Src/innovation.c:3:6:Innovation_Init	4	static
+../Core/Application/Src/innovation.c:8:6:Innovation_Task	4	static

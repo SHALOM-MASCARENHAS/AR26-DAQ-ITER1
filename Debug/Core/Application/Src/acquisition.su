@@ -1,0 +1,6 @@
+../Core/Application/Src/acquisition.c:32:14:ADC_To_Voltage	16	static
+../Core/Application/Src/acquisition.c:37:14:ADC_To_BrakePressureBar	24	static
+../Core/Application/Src/acquisition.c:60:14:ADC_To_ThrottlePercent	24	static
+../Core/Application/Src/acquisition.c:78:14:ADC_To_BatteryVoltage	16	static
+../Core/Application/Src/acquisition.c:87:6:Acquisition_Init	8	static
+../Core/Application/Src/acquisition.c:101:6:Acquisition_Task	8	static

@@ -1,0 +1,14 @@
+../Core/Application/Src/logger.c:61:6:Logger_Init	1
+../Core/Application/Src/logger.c:81:6:Logger_Task	1
+../Core/Application/Src/logger.c:85:13:Logger_GetRTC	3
+../Core/Application/Src/logger.c:100:13:Logger_FileExists	1
+../Core/Application/Src/logger.c:106:13:Logger_CreateFilename	9
+../Core/Application/Src/logger.c:153:13:Logger_Mount	3
+../Core/Application/Src/logger.c:172:13:Logger_OpenFile	4
+../Core/Application/Src/logger.c:208:13:Logger_Close	3
+../Core/Application/Src/logger.c:234:13:Logger_WriteHeader	3
+../Core/Application/Src/logger.c:270:13:Logger_WriteRecord	5
+../Core/Application/Src/logger.c:341:13:Logger_Flush	6
+../Core/Application/Src/logger.c:396:13:Logger_UpdateStatusLED	3
+../Core/Application/Src/logger.c:422:13:Logger_Service	9
+../Core/Application/Src/logger.c:478:13:Logger_UpdateSafeRemoveLED	9

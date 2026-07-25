@@ -1,0 +1,5 @@
+../Core/Application/Src/health.c:6:6:Health_Init	2
+../Core/Application/Src/health.c:16:6:Health_SetDeviceStatus	4
+../Core/Application/Src/health.c:38:16:Health_GetDeviceStatus	2
+../Core/Application/Src/health.c:48:15:Health_GetSystemState	1
+../Core/Application/Src/health.c:52:6:Health_Task	1
