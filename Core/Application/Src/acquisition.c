@@ -5,7 +5,7 @@
 #include "app_config.h"
 #include "shared_data.h"
 #include "health.h"
-
+#include "tca9548a.h"
 /*=============================
     ADC Channel Indices
 =============================*/
@@ -83,6 +83,14 @@ static float ADC_To_BatteryVoltage(uint16_t raw)
 
 void Acquisition_Init(void)
 {
+	if (TCA9548A_Init() == HAL_OK)
+	    {
+	        Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
+	    }
+	else
+	    {
+	        Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_ERROR);
+	    }
     if (HAL_ADC_Start_DMA(&hadc1,
                           (uint32_t *)adcRaw,
                           ADC_CHANNEL_COUNT) == HAL_OK)

@@ -1,0 +1,6 @@
+../Core/Drivers/TCA9548A/tca9548a.c:23:26:TCA9548A_Write	24	static
+../Core/Drivers/TCA9548A/tca9548a.c:39:26:TCA9548A_Read	24	static
+../Core/Drivers/TCA9548A/tca9548a.c:64:19:TCA9548A_Init	16	static
+../Core/Drivers/TCA9548A/tca9548a.c:101:19:TCA9548A_SelectChannel	16	static
+../Core/Drivers/TCA9548A/tca9548a.c:116:19:TCA9548A_DisableAll	8	static
+../Core/Drivers/TCA9548A/tca9548a.c:128:19:TCA9548A_ReadControl	16	static

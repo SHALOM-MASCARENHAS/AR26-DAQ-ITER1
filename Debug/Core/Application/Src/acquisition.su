@@ -3,4 +3,4 @@
 ../Core/Application/Src/acquisition.c:57:14:ADC_To_ThrottlePercent	24	static
 ../Core/Application/Src/acquisition.c:75:14:ADC_To_BatteryVoltage	16	static
 ../Core/Application/Src/acquisition.c:84:6:Acquisition_Init	8	static
-../Core/Application/Src/acquisition.c:113:6:Acquisition_Task	80	static
+../Core/Application/Src/acquisition.c:121:6:Acquisition_Task	80	static
