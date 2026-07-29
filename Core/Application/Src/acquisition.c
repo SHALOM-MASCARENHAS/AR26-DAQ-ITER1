@@ -1,7 +1,7 @@
 #include "acquisition.h"
-
+#include <math.h>
 #include "adc.h"
-
+#include "mpu6500.h"
 #include "app_config.h"
 #include "shared_data.h"
 #include "health.h"
@@ -24,14 +24,11 @@ typedef enum
 =============================*/
 
 static uint16_t adcRaw[ADC_CHANNEL_COUNT];
-#define ADC_VREF                3.3f
-#define ADC_MAX_VALUE           4095.0f
-
 
 #define TPS_MAX_VOLTAGE        2.85f
 static float ADC_To_Voltage(uint16_t raw)
 {
-    return ((float)raw * ADC_VREF) / ADC_MAX_VALUE;
+	return ((float)raw * ADC_REFERENCE_VOLTAGE) / ADC_MAX_COUNTS;
 }
 
 static float ADC_To_BrakePressureBar(uint16_t raw)
@@ -96,6 +93,21 @@ void Acquisition_Init(void)
     {
         Health_SetDeviceStatus(DEVICE_ADC, DEVICE_ERROR);
     }
+    if (MPU6500_Init() == HAL_OK)
+    {
+        if (MPU6500_CalibrateGyro() == HAL_OK)
+        {
+            Health_SetDeviceStatus(DEVICE_IMU, DEVICE_OK);
+        }
+        else
+        {
+            Health_SetDeviceStatus(DEVICE_IMU, DEVICE_ERROR);
+        }
+    }
+    else
+    {
+        Health_SetDeviceStatus(DEVICE_IMU, DEVICE_ERROR);
+    }
 }
 
 void Acquisition_Task(void)
@@ -113,4 +125,94 @@ void Acquisition_Task(void)
     g_daqData.rearBrakeBar  = ADC_To_BrakePressureBar(g_daqData.rearBrakeRaw);
     g_daqData.throttlePercent = ADC_To_ThrottlePercent(g_daqData.tpsRaw);
     g_daqData.batteryVoltage  = ADC_To_BatteryVoltage(g_daqData.batteryRaw);
+    /* MPU6500 */
+    static float rollAngle = 0.0f;
+    static float pitchAngle = 0.0f;
+    static float yawAngle = 0.0f;
+
+    #define COMPLEMENTARY_ALPHA 0.98f
+    #define DT_SECONDS          0.01f
+    float ax;
+    float ay;
+    float az;
+
+    float gx;
+    float gy;
+    float gz;
+
+    float temperature;
+
+    if (MPU6500_ReadAll(&ax,
+                        &ay,
+                        &az,
+                        &gx,
+                        &gy,
+                        &gz,
+                        &temperature) == HAL_OK)
+    {
+        /*
+         * IMPORTANT:
+         * Change these mappings if your MPU orientation differs.
+         * This assumes:
+         *
+         * Sensor X = Vehicle Forward
+         * Sensor Y = Vehicle Left
+         * Sensor Z = Vehicle Up
+         */
+
+        g_daqData.accelLongitudinal = ax;
+        g_daqData.accelLateral      = ay;
+        g_daqData.accelVertical     = az;
+
+        g_daqData.rollRate  = gx;
+        g_daqData.pitchRate = gy;
+        g_daqData.yawRate   = gz;
+
+        g_daqData.imuTemperature = temperature;
+
+        float accelRoll =
+            atan2f(ay, az) * 57.29578f;
+
+        float accelPitch =
+            atan2f(-ax,
+                   sqrtf((ay * ay) + (az * az))) * 57.29578f;
+
+        rollAngle += gx * DT_SECONDS;
+        pitchAngle += gy * DT_SECONDS;
+        yawAngle += gz * DT_SECONDS;
+
+        rollAngle =
+            (COMPLEMENTARY_ALPHA * rollAngle) +
+            ((1.0f - COMPLEMENTARY_ALPHA) * accelRoll);
+
+        pitchAngle =
+            (COMPLEMENTARY_ALPHA * pitchAngle) +
+            ((1.0f - COMPLEMENTARY_ALPHA) * accelPitch);
+
+        g_daqData.rollAngle = rollAngle;
+        g_daqData.pitchAngle = pitchAngle;
+        g_daqData.yawAngle = yawAngle;
+
+        Health_SetDeviceStatus(DEVICE_IMU,
+                               DEVICE_OK);
+    }
+    else
+    {
+        g_daqData.accelLongitudinal = NAN;
+        g_daqData.accelLateral      = NAN;
+        g_daqData.accelVertical     = NAN;
+
+        g_daqData.rollRate = NAN;
+        g_daqData.pitchRate = NAN;
+        g_daqData.yawRate = NAN;
+
+        g_daqData.rollAngle = NAN;
+        g_daqData.pitchAngle = NAN;
+        g_daqData.yawAngle = NAN;
+
+        g_daqData.imuTemperature = NAN;
+
+        Health_SetDeviceStatus(DEVICE_IMU,
+                               DEVICE_ERROR);
+    }
 }

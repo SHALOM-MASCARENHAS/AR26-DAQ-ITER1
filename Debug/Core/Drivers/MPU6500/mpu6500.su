@@ -1,0 +1,6 @@
+../Core/Drivers/MPU6500/mpu6500.c:50:26:MPU6500_WriteRegister	32	static
+../Core/Drivers/MPU6500/mpu6500.c:62:26:MPU6500_ReadRegister	32	static
+../Core/Drivers/MPU6500/mpu6500.c:74:26:MPU6500_ReadRegisters	32	static
+../Core/Drivers/MPU6500/mpu6500.c:86:19:MPU6500_Init	16	static
+../Core/Drivers/MPU6500/mpu6500.c:165:19:MPU6500_CalibrateGyro	80	static
+../Core/Drivers/MPU6500/mpu6500.c:212:19:MPU6500_ReadAll	56	static

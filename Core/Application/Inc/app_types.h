@@ -82,14 +82,19 @@ typedef struct
       IMU
     -------------------------*/
 
-    float accelX;
-    float accelY;
-    float accelZ;
+    float accelLongitudinal;
+    float accelLateral;
+    float accelVertical;
 
-    float gyroX;
-    float gyroY;
-    float gyroZ;
+    float rollRate;
+    float pitchRate;
+    float yawRate;
 
+    float rollAngle;
+    float pitchAngle;
+    float yawAngle;
+
+    float imuTemperature;
     /*-------------------------
       Tire Temperature
     -------------------------*/

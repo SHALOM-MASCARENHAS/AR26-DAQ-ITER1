@@ -244,15 +244,19 @@ static bool Logger_WriteHeader(void)
         "WheelLeft_kph,"
         "WheelRight_kph,"
         "EngineRPM,"
-        "RideHeight_mm,"
-        "AccelX,"
-        "AccelY,"
-        "AccelZ,"
-        "GyroX,"
-        "GyroY,"
-        "GyroZ,"
-        "TireTempLeft_C,"
-        "TireTempRight_C\r\n";
+    	"RideHeight_mm,"
+    	"LongAccel_G,"
+    	"LatAccel_G,"
+    	"VertAccel_G,"
+    	"RollRate_dps,"
+    	"PitchRate_dps,"
+    	"YawRate_dps,"
+    	"Roll_deg,"
+    	"Pitch_deg,"
+    	"Yaw_deg,"
+    	"IMUTemp_C,"
+    	"TireTempLeft_C,"
+    	"TireTempRight_C\r\n";
 
     UINT headerLength = (UINT)strlen(header);
 
@@ -284,14 +288,18 @@ static bool Logger_WriteRecord(void)
         "%.2f,"
         "%lu,"
         "%.2f,"
-        "%.3f,"
-        "%.3f,"
-        "%.3f,"
-        "%.3f,"
-        "%.3f,"
-        "%.3f,"
-        "%.2f,"
-        "%.2f\r\n",
+		"%.3f,"
+		"%.3f,"
+		"%.3f,"
+		"%.3f,"
+		"%.3f,"
+		"%.3f,"
+		"%.2f,"
+		"%.2f,"
+		"%.2f,"
+		"%.2f,"
+		"%.2f,"
+		"%.2f\r\n",
 
         (unsigned long)(g_daqData.timestamp_ms - logger.loggerStartTick),
 
@@ -307,13 +315,19 @@ static bool Logger_WriteRecord(void)
 
         g_daqData.rideHeightMm,
 
-        g_daqData.accelX,
-        g_daqData.accelY,
-        g_daqData.accelZ,
+		g_daqData.accelLongitudinal,
+		g_daqData.accelLateral,
+		g_daqData.accelVertical,
 
-        g_daqData.gyroX,
-        g_daqData.gyroY,
-        g_daqData.gyroZ,
+		g_daqData.rollRate,
+		g_daqData.pitchRate,
+		g_daqData.yawRate,
+
+		g_daqData.rollAngle,
+		g_daqData.pitchAngle,
+		g_daqData.yawAngle,
+
+		g_daqData.imuTemperature,
 
         g_daqData.tireTempLeft,
         g_daqData.tireTempRight);

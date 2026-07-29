@@ -7,8 +7,8 @@
 ../Core/Application/Src/logger.c:172:13:Logger_OpenFile	4
 ../Core/Application/Src/logger.c:208:13:Logger_Close	3
 ../Core/Application/Src/logger.c:234:13:Logger_WriteHeader	3
-../Core/Application/Src/logger.c:270:13:Logger_WriteRecord	5
-../Core/Application/Src/logger.c:341:13:Logger_Flush	6
-../Core/Application/Src/logger.c:396:13:Logger_UpdateStatusLED	3
-../Core/Application/Src/logger.c:422:13:Logger_Service	9
-../Core/Application/Src/logger.c:478:13:Logger_UpdateSafeRemoveLED	9
+../Core/Application/Src/logger.c:274:13:Logger_WriteRecord	5
+../Core/Application/Src/logger.c:355:13:Logger_Flush	6
+../Core/Application/Src/logger.c:410:13:Logger_UpdateStatusLED	3
+../Core/Application/Src/logger.c:436:13:Logger_Service	9
+../Core/Application/Src/logger.c:492:13:Logger_UpdateSafeRemoveLED	9

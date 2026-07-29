@@ -1,6 +1,6 @@
-Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
- ../Core/Application/Inc/acquisition.h ../Core/Inc/adc.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+Core/Drivers/MPU6500/mpu6500.o: ../Core/Drivers/MPU6500/mpu6500.c \
+ ../Core/Drivers/MPU6500/mpu6500.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -37,12 +37,8 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Drivers/MPU6500/mpu6500.h ../Core/Application/Inc/app_config.h \
- ../Core/Application/Inc/shared_data.h \
- ../Core/Application/Inc/app_types.h ../Core/Application/Inc/health.h
-../Core/Application/Inc/acquisition.h:
-../Core/Inc/adc.h:
-../Core/Inc/main.h:
+ ../Core/Inc/i2c.h ../Core/Inc/main.h
+../Core/Drivers/MPU6500/mpu6500.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -80,8 +76,5 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Drivers/MPU6500/mpu6500.h:
-../Core/Application/Inc/app_config.h:
-../Core/Application/Inc/shared_data.h:
-../Core/Application/Inc/app_types.h:
-../Core/Application/Inc/health.h:
+../Core/Inc/i2c.h:
+../Core/Inc/main.h:

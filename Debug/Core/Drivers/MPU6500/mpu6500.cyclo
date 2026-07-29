@@ -1,0 +1,6 @@
+../Core/Drivers/MPU6500/mpu6500.c:50:26:MPU6500_WriteRegister	1
+../Core/Drivers/MPU6500/mpu6500.c:62:26:MPU6500_ReadRegister	1
+../Core/Drivers/MPU6500/mpu6500.c:74:26:MPU6500_ReadRegisters	1
+../Core/Drivers/MPU6500/mpu6500.c:86:19:MPU6500_Init	11
+../Core/Drivers/MPU6500/mpu6500.c:165:19:MPU6500_CalibrateGyro	6
+../Core/Drivers/MPU6500/mpu6500.c:212:19:MPU6500_ReadAll	2

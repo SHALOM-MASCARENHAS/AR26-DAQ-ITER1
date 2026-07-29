@@ -25,6 +25,7 @@ extern "C" {
 #define BRAKE_SENSOR_ZERO_VOLTAGE      0.5f
 #define BRAKE_SENSOR_FULL_SCALE_BAR  100.0f
 #define BRAKE_SENSOR_SPAN_VOLTAGE      4.0f
+#define ADC_MAX_COUNTS           4095.0f
 /*=============================
     Logger
 =============================*/
