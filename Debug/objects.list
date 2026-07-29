@@ -4,6 +4,7 @@
 "./Core/Application/Src/innovation.o"
 "./Core/Application/Src/logger.o"
 "./Core/Application/Src/shared_data.o"
+"./Core/Drivers/MLX90614/mlx90614.o"
 "./Core/Drivers/MPU6500/mpu6500.o"
 "./Core/Drivers/TCA9548A/tca9548a.o"
 "./Core/Src/adc.o"

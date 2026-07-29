@@ -1,0 +1,4 @@
+../Core/Drivers/MLX90614/mlx90614.c:7:26:MLX90614_ReadRegister	40	static
+../Core/Drivers/MLX90614/mlx90614.c:35:19:MLX90614_Init	16	static
+../Core/Drivers/MLX90614/mlx90614.c:42:19:MLX90614_ReadAmbientTemperature	24	static
+../Core/Drivers/MLX90614/mlx90614.c:71:19:MLX90614_ReadObjectTemperature	24	static

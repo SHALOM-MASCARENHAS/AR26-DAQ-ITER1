@@ -1,6 +1,6 @@
-../Core/Application/Src/acquisition.c:29:14:ADC_To_Voltage	1
-../Core/Application/Src/acquisition.c:34:14:ADC_To_BrakePressureBar	3
-../Core/Application/Src/acquisition.c:57:14:ADC_To_ThrottlePercent	3
-../Core/Application/Src/acquisition.c:75:14:ADC_To_BatteryVoltage	1
-../Core/Application/Src/acquisition.c:84:6:Acquisition_Init	5
-../Core/Application/Src/acquisition.c:121:6:Acquisition_Task	2
+../Core/Application/Src/acquisition.c:30:14:ADC_To_Voltage	1
+../Core/Application/Src/acquisition.c:35:14:ADC_To_BrakePressureBar	3
+../Core/Application/Src/acquisition.c:58:14:ADC_To_ThrottlePercent	3
+../Core/Application/Src/acquisition.c:76:14:ADC_To_BatteryVoltage	1
+../Core/Application/Src/acquisition.c:85:6:Acquisition_Init	9
+../Core/Application/Src/acquisition.c:164:6:Acquisition_Task	6

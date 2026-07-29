@@ -5,26 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Middlewares/Third_Party/FatFs/src/option/ccsbcs.c \
-../Middlewares/Third_Party/FatFs/src/option/syscall.c 
+../Core/Drivers/MLX90614/mlx90614.c 
 
 OBJS += \
-./Middlewares/Third_Party/FatFs/src/option/ccsbcs.o \
-./Middlewares/Third_Party/FatFs/src/option/syscall.o 
+./Core/Drivers/MLX90614/mlx90614.o 
 
 C_DEPS += \
-./Middlewares/Third_Party/FatFs/src/option/ccsbcs.d \
-./Middlewares/Third_Party/FatFs/src/option/syscall.d 
+./Core/Drivers/MLX90614/mlx90614.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Middlewares/Third_Party/FatFs/src/option/%.o Middlewares/Third_Party/FatFs/src/option/%.su Middlewares/Third_Party/FatFs/src/option/%.cyclo: ../Middlewares/Third_Party/FatFs/src/option/%.c Middlewares/Third_Party/FatFs/src/option/subdir.mk
+Core/Drivers/MLX90614/%.o Core/Drivers/MLX90614/%.su Core/Drivers/MLX90614/%.cyclo: ../Core/Drivers/MLX90614/%.c Core/Drivers/MLX90614/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Core/Drivers/MLX90614 -I../Core/Drivers/TCA9548A -I../Core/Drivers/MPU6500 -I../Core/Application/Inc -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-Middlewares-2f-Third_Party-2f-FatFs-2f-src-2f-option
+clean: clean-Core-2f-Drivers-2f-MLX90614
 
-clean-Middlewares-2f-Third_Party-2f-FatFs-2f-src-2f-option:
-	-$(RM) ./Middlewares/Third_Party/FatFs/src/option/ccsbcs.cyclo ./Middlewares/Third_Party/FatFs/src/option/ccsbcs.d ./Middlewares/Third_Party/FatFs/src/option/ccsbcs.o ./Middlewares/Third_Party/FatFs/src/option/ccsbcs.su ./Middlewares/Third_Party/FatFs/src/option/syscall.cyclo ./Middlewares/Third_Party/FatFs/src/option/syscall.d ./Middlewares/Third_Party/FatFs/src/option/syscall.o ./Middlewares/Third_Party/FatFs/src/option/syscall.su
+clean-Core-2f-Drivers-2f-MLX90614:
+	-$(RM) ./Core/Drivers/MLX90614/mlx90614.cyclo ./Core/Drivers/MLX90614/mlx90614.d ./Core/Drivers/MLX90614/mlx90614.o ./Core/Drivers/MLX90614/mlx90614.su
 
-.PHONY: clean-Middlewares-2f-Third_Party-2f-FatFs-2f-src-2f-option
+.PHONY: clean-Core-2f-Drivers-2f-MLX90614
 

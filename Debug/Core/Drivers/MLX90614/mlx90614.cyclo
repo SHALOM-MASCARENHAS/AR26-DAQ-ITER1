@@ -1,0 +1,4 @@
+../Core/Drivers/MLX90614/mlx90614.c:7:26:MLX90614_ReadRegister	3
+../Core/Drivers/MLX90614/mlx90614.c:35:19:MLX90614_Init	1
+../Core/Drivers/MLX90614/mlx90614.c:42:19:MLX90614_ReadAmbientTemperature	4
+../Core/Drivers/MLX90614/mlx90614.c:71:19:MLX90614_ReadObjectTemperature	4

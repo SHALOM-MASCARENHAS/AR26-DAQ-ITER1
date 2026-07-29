@@ -6,6 +6,7 @@
 #include "shared_data.h"
 #include "health.h"
 #include "tca9548a.h"
+#include "mlx90614.h"
 /*=============================
     ADC Channel Indices
 =============================*/
@@ -84,13 +85,55 @@ static float ADC_To_BatteryVoltage(uint16_t raw)
 void Acquisition_Init(void)
 {
 	if (TCA9548A_Init() == HAL_OK)
+	{
+	    Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
+
+	    /* Left MLX90614 */
+	    if (TCA9548A_SelectChannel(0) == HAL_OK)
 	    {
-	        Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
+	        if (MLX90614_Init() == HAL_OK)
+	        {
+	            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_OK);
+	        }
+	        else
+	        {
+	            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+	        }
+
+	        TCA9548A_DisableAll();
 	    }
+	    else
+	    {
+	        Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+	    }
+
+	    /* Right MLX90614 */
+	    if (TCA9548A_SelectChannel(1) == HAL_OK)
+	    {
+	        if (MLX90614_Init() == HAL_OK)
+	        {
+	            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_OK);
+	        }
+	        else
+	        {
+	            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+	        }
+
+	        TCA9548A_DisableAll();
+	    }
+	    else
+	    {
+	        Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+	    }
+	}
 	else
-	    {
-	        Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_ERROR);
-	    }
+	{
+	    Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_ERROR);
+
+	    Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+	    Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+	}
+
     if (HAL_ADC_Start_DMA(&hadc1,
                           (uint32_t *)adcRaw,
                           ADC_CHANNEL_COUNT) == HAL_OK)
@@ -222,5 +265,43 @@ void Acquisition_Task(void)
 
         Health_SetDeviceStatus(DEVICE_IMU,
                                DEVICE_ERROR);
+    }
+    if (TCA9548A_SelectChannel(0) == HAL_OK)
+    {
+        if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempLeft) == HAL_OK)
+        {
+            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_OK);
+        }
+        else
+        {
+            g_daqData.tireTempLeft = NAN;
+            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+        }
+
+        TCA9548A_DisableAll();
+    }
+    else
+    {
+        g_daqData.tireTempLeft = NAN;
+        Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+    }
+    if (TCA9548A_SelectChannel(1) == HAL_OK)
+    {
+        if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempRight) == HAL_OK)
+        {
+            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_OK);
+        }
+        else
+        {
+            g_daqData.tireTempRight = NAN;
+            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+        }
+
+        TCA9548A_DisableAll();
+    }
+    else
+    {
+        g_daqData.tireTempRight = NAN;
+        Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
     }
 }
