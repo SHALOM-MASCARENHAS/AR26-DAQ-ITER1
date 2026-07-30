@@ -40,7 +40,8 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
  ../Core/Drivers/MPU6500/mpu6500.h ../Core/Application/Inc/app_config.h \
  ../Core/Application/Inc/shared_data.h \
  ../Core/Application/Inc/app_types.h ../Core/Application/Inc/health.h \
- ../Core/Drivers/TCA9548A/tca9548a.h ../Core/Drivers/MLX90614/mlx90614.h
+ ../Core/Drivers/TCA9548A/tca9548a.h ../Core/Drivers/MLX90614/mlx90614.h \
+ ../Core/Drivers/VL53L0X/vl53l0x.h ../Core/Inc/main.h ../Core/Inc/i2c.h
 ../Core/Application/Inc/acquisition.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
@@ -88,3 +89,6 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
 ../Core/Application/Inc/health.h:
 ../Core/Drivers/TCA9548A/tca9548a.h:
 ../Core/Drivers/MLX90614/mlx90614.h:
+../Core/Drivers/VL53L0X/vl53l0x.h:
+../Core/Inc/main.h:
+../Core/Inc/i2c.h:

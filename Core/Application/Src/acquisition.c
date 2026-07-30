@@ -7,6 +7,8 @@
 #include "health.h"
 #include "tca9548a.h"
 #include "mlx90614.h"
+#include "vl53l0x.h"
+#include "i2c.h"
 /*=============================
     ADC Channel Indices
 =============================*/
@@ -159,6 +161,15 @@ void Acquisition_Init(void)
     {
         Health_SetDeviceStatus(DEVICE_IMU, DEVICE_ERROR);
     }
+
+    if (VL53L0X_Init(&hi2c1) == VL53L0X_OK)
+    {
+        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
+    }
+    else
+    {
+        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
+    }
 }
 
 void Acquisition_Task(void)
@@ -303,5 +314,17 @@ void Acquisition_Task(void)
     {
         g_daqData.tireTempRight = NAN;
         Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+    }
+    uint16_t distance;
+
+    if (VL53L0X_ReadDistance(&distance) == VL53L0X_OK)
+    {
+        g_daqData.rideHeightMm = (float)distance;
+        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
+    }
+    else
+    {
+        g_daqData.rideHeightMm = NAN;
+        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
     }
 }

@@ -27,6 +27,9 @@ Core/Drivers/LCD \
 Core/Drivers/MLX90614 \
 Core/Drivers/MPU6500 \
 Core/Drivers/TCA9548A \
+Core/Drivers/VL53L0X/core/src \
+Core/Drivers/VL53L0X/platform/src \
+Core/Drivers/VL53L0X \
 Core/Src \
 Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \

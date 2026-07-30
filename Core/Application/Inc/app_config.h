@@ -29,7 +29,14 @@ extern "C" {
 /*=============================
     Logger
 =============================*/
+/*=============================
+    VL53L0X
+=============================*/
 
+#define VL53L0X_I2C_ADDRESS             0x52U
+#define VL53L0X_TIMING_BUDGET_US    33000U
+#define VL53L0X_SIGMA_LIMIT_MM       60.0f
+#define VL53L0X_SIGNAL_RATE_LIMIT     0.1f
 #define LOGGER_BUFFER_SIZE           4096U
 
 /*=============================

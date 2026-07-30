@@ -20,6 +20,9 @@ RM := rm -rf
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/Drivers/VL53L0X/platform/src/subdir.mk
+-include Core/Drivers/VL53L0X/core/src/subdir.mk
+-include Core/Drivers/VL53L0X/subdir.mk
 -include Core/Drivers/TCA9548A/subdir.mk
 -include Core/Drivers/MPU6500/subdir.mk
 -include Core/Drivers/MLX90614/subdir.mk

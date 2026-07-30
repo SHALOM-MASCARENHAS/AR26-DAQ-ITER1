@@ -1,0 +1,2 @@
+../Core/Drivers/VL53L0X/vl53l0x.c:8:18:VL53L0X_Init	32	static
+../Core/Drivers/VL53L0X/vl53l0x.c:66:18:VL53L0X_ReadDistance	48	static
