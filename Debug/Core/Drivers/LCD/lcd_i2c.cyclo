@@ -1,0 +1,15 @@
+../Core/Drivers/LCD/lcd_i2c.c:50:26:LCD_Select	1
+../Core/Drivers/LCD/lcd_i2c.c:55:13:LCD_Deselect	1
+../Core/Drivers/LCD/lcd_i2c.c:64:26:LCD_Write	1
+../Core/Drivers/LCD/lcd_i2c.c:77:26:LCD_SendNibble	5
+../Core/Drivers/LCD/lcd_i2c.c:105:26:LCD_SendByte	3
+../Core/Drivers/LCD/lcd_i2c.c:121:26:LCD_CommandInternal	4
+../Core/Drivers/LCD/lcd_i2c.c:139:26:LCD_DataInternal	1
+../Core/Drivers/LCD/lcd_i2c.c:147:19:LCD_Init	11
+../Core/Drivers/LCD/lcd_i2c.c:197:19:LCD_Clear	2
+../Core/Drivers/LCD/lcd_i2c.c:215:19:LCD_Home	2
+../Core/Drivers/LCD/lcd_i2c.c:233:19:LCD_SetCursor	5
+../Core/Drivers/LCD/lcd_i2c.c:264:19:LCD_Print	5
+../Core/Drivers/LCD/lcd_i2c.c:293:19:LCD_PrintAt	10
+../Core/Drivers/LCD/lcd_i2c.c:347:19:LCD_ScrollLeft	2
+../Core/Drivers/LCD/lcd_i2c.c:366:19:LCD_ScrollRight	2

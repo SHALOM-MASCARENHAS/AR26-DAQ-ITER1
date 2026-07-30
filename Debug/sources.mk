@@ -23,6 +23,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Application/Src \
+Core/Drivers/LCD \
 Core/Drivers/MLX90614 \
 Core/Drivers/MPU6500 \
 Core/Drivers/TCA9548A \

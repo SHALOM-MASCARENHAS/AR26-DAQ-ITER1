@@ -1,2 +1,2 @@
-../Core/Application/Src/display.c:3:6:Display_Init	4	static
-../Core/Application/Src/display.c:8:6:Display_Task	4	static
+../Core/Application/Src/display.c:26:6:Display_Init	8	static
+../Core/Application/Src/display.c:43:6:Display_Task	88	static

@@ -11,7 +11,7 @@ extern "C" {
 
 #define ACQUISITION_TASK_PERIOD_MS      10U
 #define LOGGER_TASK_PERIOD_MS           10U
-#define DISPLAY_TASK_PERIOD_MS         200U
+#define DISPLAY_TASK_PERIOD_MS         500U
 #define HEALTH_TASK_PERIOD_MS          500U
 #define INNOVATION_TASK_PERIOD_MS       20U
 
@@ -44,6 +44,13 @@ extern "C" {
 =============================*/
 
 #define VBAT_DIVIDER_RATIO           4.03f
+/*=============================
+    Display
+=============================*/
+
+#define DISPLAY_BOOT_HOLD_MS        2000U
+#define DISPLAY_TYPING_DELAY_MS      120U
+#define DISPLAY_PAGE_PERIOD_MS      2000U
 
 #ifdef __cplusplus
 }

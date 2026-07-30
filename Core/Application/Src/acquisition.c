@@ -88,7 +88,7 @@ void Acquisition_Init(void)
 	{
 	    Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
 
-	    /* Left MLX90614 */
+
 	    if (TCA9548A_SelectChannel(0) == HAL_OK)
 	    {
 	        if (MLX90614_Init() == HAL_OK)
@@ -107,7 +107,7 @@ void Acquisition_Init(void)
 	        Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
 	    }
 
-	    /* Right MLX90614 */
+
 	    if (TCA9548A_SelectChannel(1) == HAL_OK)
 	    {
 	        if (MLX90614_Init() == HAL_OK)

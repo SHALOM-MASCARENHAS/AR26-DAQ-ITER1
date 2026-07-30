@@ -1,5 +1,5 @@
-Core/Application/Src/display.o: ../Core/Application/Src/display.c \
- ../Core/Application/Inc/display.h ../Core/Drivers/LCD/lcd_i2c.h \
+Core/Drivers/LCD/lcd_i2c.o: ../Core/Drivers/LCD/lcd_i2c.c \
+ ../Core/Drivers/LCD/lcd_i2c.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -37,9 +37,7 @@ Core/Application/Src/display.o: ../Core/Application/Src/display.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Application/Inc/shared_data.h \
- ../Core/Application/Inc/app_types.h ../Core/Application/Inc/app_config.h
-../Core/Application/Inc/display.h:
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Drivers/TCA9548A/tca9548a.h
 ../Core/Drivers/LCD/lcd_i2c.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -78,6 +76,6 @@ Core/Application/Src/display.o: ../Core/Application/Src/display.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Application/Inc/shared_data.h:
-../Core/Application/Inc/app_types.h:
-../Core/Application/Inc/app_config.h:
+../Core/Inc/i2c.h:
+../Core/Inc/main.h:
+../Core/Drivers/TCA9548A/tca9548a.h:

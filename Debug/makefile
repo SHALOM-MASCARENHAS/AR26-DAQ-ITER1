@@ -23,6 +23,7 @@ RM := rm -rf
 -include Core/Drivers/TCA9548A/subdir.mk
 -include Core/Drivers/MPU6500/subdir.mk
 -include Core/Drivers/MLX90614/subdir.mk
+-include Core/Drivers/LCD/subdir.mk
 -include Core/Application/Src/subdir.mk
 -include objects.mk
 
