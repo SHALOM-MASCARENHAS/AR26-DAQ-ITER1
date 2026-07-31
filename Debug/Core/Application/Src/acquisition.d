@@ -37,11 +37,21 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Drivers/MPU6500/mpu6500.h ../Core/Application/Inc/app_config.h \
+ ../Core/Inc/tim.h ../Core/Drivers/MPU6500/mpu6500.h \
+ ../Core/Application/Inc/app_config.h \
  ../Core/Application/Inc/shared_data.h \
  ../Core/Application/Inc/app_types.h ../Core/Application/Inc/health.h \
  ../Core/Drivers/TCA9548A/tca9548a.h ../Core/Drivers/MLX90614/mlx90614.h \
- ../Core/Drivers/VL53L0X/vl53l0x.h ../Core/Inc/main.h ../Core/Inc/i2c.h
+ ../Core/Drivers/VL53L0X/vl53l0x.h ../Core/Inc/main.h ../Core/Inc/i2c.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
+ ../Core/Inc/FreeRTOSConfig.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 ../Core/Application/Inc/acquisition.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
@@ -82,6 +92,7 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/tim.h:
 ../Core/Drivers/MPU6500/mpu6500.h:
 ../Core/Application/Inc/app_config.h:
 ../Core/Application/Inc/shared_data.h:
@@ -92,3 +103,12 @@ Core/Application/Src/acquisition.o: ../Core/Application/Src/acquisition.c \
 ../Core/Drivers/VL53L0X/vl53l0x.h:
 ../Core/Inc/main.h:
 ../Core/Inc/i2c.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
+../Core/Inc/FreeRTOSConfig.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h:
+../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:

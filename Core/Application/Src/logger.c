@@ -241,6 +241,8 @@ static bool Logger_WriteHeader(void)
         "RearBrake_bar,"
         "Throttle_percent,"
         "Battery_V,"
+    	"WheelLeft_Hz,"
+    	"WheelRight_Hz,"
         "WheelLeft_kph,"
         "WheelRight_kph,"
         "EngineRPM,"
@@ -284,6 +286,8 @@ static bool Logger_WriteRecord(void)
         "%.2f,"
         "%.2f,"
         "%.2f,"
+		"%lu,"
+		"%lu,"
         "%.2f,"
         "%.2f,"
         "%lu,"
@@ -307,7 +311,8 @@ static bool Logger_WriteRecord(void)
         g_daqData.rearBrakeBar,
         g_daqData.throttlePercent,
         g_daqData.batteryVoltage,
-
+		(unsigned long)g_daqData.wheelSpeedLeftHz,
+		(unsigned long)g_daqData.wheelSpeedRightHz,
         g_daqData.wheelSpeedLeftKph,
         g_daqData.wheelSpeedRightKph,
 

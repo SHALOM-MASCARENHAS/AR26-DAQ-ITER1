@@ -6,9 +6,9 @@
 ../Core/Application/Src/logger.c:153:13:Logger_Mount	8	static
 ../Core/Application/Src/logger.c:172:13:Logger_OpenFile	8	static
 ../Core/Application/Src/logger.c:208:13:Logger_Close	16	static
-../Core/Application/Src/logger.c:234:13:Logger_WriteHeader	280	static
-../Core/Application/Src/logger.c:274:13:Logger_WriteRecord	336	static
-../Core/Application/Src/logger.c:355:13:Logger_Flush	16	static
-../Core/Application/Src/logger.c:410:13:Logger_UpdateStatusLED	8	static
-../Core/Application/Src/logger.c:436:13:Logger_Service	8	static
-../Core/Application/Src/logger.c:492:13:Logger_UpdateSafeRemoveLED	16	static
+../Core/Application/Src/logger.c:234:13:Logger_WriteHeader	304	static
+../Core/Application/Src/logger.c:276:13:Logger_WriteRecord	352	static
+../Core/Application/Src/logger.c:360:13:Logger_Flush	16	static
+../Core/Application/Src/logger.c:415:13:Logger_UpdateStatusLED	8	static
+../Core/Application/Src/logger.c:441:13:Logger_Service	8	static
+../Core/Application/Src/logger.c:497:13:Logger_UpdateSafeRemoveLED	16	static

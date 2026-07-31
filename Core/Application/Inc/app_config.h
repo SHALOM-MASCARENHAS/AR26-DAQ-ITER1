@@ -30,6 +30,23 @@ extern "C" {
     Logger
 =============================*/
 /*=============================
+    Wheel Speed
+=============================*/
+
+#define WHEEL_TOOTH_COUNT            10U
+#define WHEEL_DIAMETER_M             0.534f
+#define WHEEL_SIGNAL_TIMEOUT_MS    200U
+#define WHEEL_CIRCUMFERENCE_M \
+    (3.14159265f * WHEEL_DIAMETER_M)
+#define MAX_VEHICLE_SPEED_KPH      200.0f
+#define MAX_WHEEL_HZ               331.0f
+#define MAX_ENGINE_RPM             15000U
+/*=============================
+    Engine RPM
+=============================*/
+
+#define ENGINE_PULSES_PER_REV        1U
+/*=============================
     VL53L0X
 =============================*/
 

@@ -1,6 +1,7 @@
 #include "acquisition.h"
 #include <math.h>
 #include "adc.h"
+#include "tim.h"
 #include "mpu6500.h"
 #include "app_config.h"
 #include "shared_data.h"
@@ -9,6 +10,9 @@
 #include "mlx90614.h"
 #include "vl53l0x.h"
 #include "i2c.h"
+#include "FreeRTOS.h"
+#include "task.h"
+
 /*=============================
     ADC Channel Indices
 =============================*/
@@ -27,6 +31,23 @@ typedef enum
 =============================*/
 
 static uint16_t adcRaw[ADC_CHANNEL_COUNT];
+/*=============================
+    Wheel Speed
+=============================*/
+
+#define TIM2_CLOCK_HZ    96000000UL
+
+static volatile uint32_t leftPreviousCapture  = 0U;
+static volatile uint32_t rightPreviousCapture = 0U;
+static volatile uint32_t rpmPreviousCapture   = 0U;
+
+static volatile uint32_t leftPeriodTicks  = 0U;
+static volatile uint32_t rightPeriodTicks = 0U;
+static volatile uint32_t rpmPeriodTicks   = 0U;
+
+static volatile uint32_t leftLastEdgeTick  = 0U;
+static volatile uint32_t rightLastEdgeTick = 0U;
+static volatile uint32_t rpmLastEdgeTick   = 0U;
 
 #define TPS_MAX_VOLTAGE        2.85f
 static float ADC_To_Voltage(uint16_t raw)
@@ -86,7 +107,7 @@ static float ADC_To_BatteryVoltage(uint16_t raw)
 
 void Acquisition_Init(void)
 {
-	if (TCA9548A_Init() == HAL_OK)
+	/*if (TCA9548A_Init() == HAL_OK)
 	{
 	    Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
 
@@ -134,7 +155,7 @@ void Acquisition_Init(void)
 
 	    Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
 	    Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
-	}
+	}*/
 
     if (HAL_ADC_Start_DMA(&hadc1,
                           (uint32_t *)adcRaw,
@@ -146,7 +167,34 @@ void Acquisition_Init(void)
     {
         Health_SetDeviceStatus(DEVICE_ADC, DEVICE_ERROR);
     }
-    if (MPU6500_Init() == HAL_OK)
+    if (HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1) == HAL_OK)
+    {
+        Health_SetDeviceStatus(DEVICE_WHEEL_LEFT, DEVICE_OK);
+    }
+    else
+    {
+        Health_SetDeviceStatus(DEVICE_WHEEL_LEFT, DEVICE_ERROR);
+    }
+
+    if (HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2) == HAL_OK)
+    {
+        Health_SetDeviceStatus(DEVICE_WHEEL_RIGHT, DEVICE_OK);
+    }
+    else
+    {
+        Health_SetDeviceStatus(DEVICE_WHEEL_RIGHT, DEVICE_ERROR);
+    }
+    if (HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_3) == HAL_OK)
+    {
+        Health_SetDeviceStatus(DEVICE_ENGINE_RPM,
+                               DEVICE_OK);
+    }
+    else
+    {
+        Health_SetDeviceStatus(DEVICE_ENGINE_RPM,
+                               DEVICE_ERROR);
+    }
+   /* if (MPU6500_Init() == HAL_OK)
     {
         if (MPU6500_CalibrateGyro() == HAL_OK)
         {
@@ -162,14 +210,14 @@ void Acquisition_Init(void)
         Health_SetDeviceStatus(DEVICE_IMU, DEVICE_ERROR);
     }
 
-    if (VL53L0X_Init(&hi2c1) == VL53L0X_OK)
+   /* if (VL53L0X_Init(&hi2c1) == VL53L0X_OK)
     {
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
     }
     else
     {
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
-    }
+    }*/
 }
 
 void Acquisition_Task(void)
@@ -187,8 +235,114 @@ void Acquisition_Task(void)
     g_daqData.rearBrakeBar  = ADC_To_BrakePressureBar(g_daqData.rearBrakeRaw);
     g_daqData.throttlePercent = ADC_To_ThrottlePercent(g_daqData.tpsRaw);
     g_daqData.batteryVoltage  = ADC_To_BatteryVoltage(g_daqData.batteryRaw);
+    /*=============================
+        Wheel Speed / Engine RPM
+    =============================*/
+
+    uint32_t leftTicks;
+    uint32_t rightTicks;
+    uint32_t rpmTicks;
+
+    uint32_t leftEdgeTick;
+    uint32_t rightEdgeTick;
+    uint32_t rpmEdgeTick;
+
+    float engineHz;
+
+    uint32_t now = HAL_GetTick();
+
+    taskENTER_CRITICAL();
+
+    leftTicks     = leftPeriodTicks;
+    rightTicks    = rightPeriodTicks;
+    rpmTicks      = rpmPeriodTicks;
+
+    leftEdgeTick  = leftLastEdgeTick;
+    rightEdgeTick = rightLastEdgeTick;
+    rpmEdgeTick   = rpmLastEdgeTick;
+
+    taskEXIT_CRITICAL();
+
+    /* Left Wheel */
+
+    if ((now - leftEdgeTick) > WHEEL_SIGNAL_TIMEOUT_MS ||
+        leftTicks == 0U)
+    {
+        g_daqData.wheelSpeedLeftHz  = 0.0f;
+        g_daqData.wheelSpeedLeftKph = 0.0f;
+    }
+    else
+    {
+        g_daqData.wheelSpeedLeftHz =
+            (float)TIM2_CLOCK_HZ / (float)leftTicks;
+
+        if (g_daqData.wheelSpeedLeftHz > MAX_WHEEL_HZ)
+        {
+            g_daqData.wheelSpeedLeftHz  = 0.0f;
+            g_daqData.wheelSpeedLeftKph = 0.0f;
+        }
+        else
+        {
+            g_daqData.wheelSpeedLeftKph =
+                (g_daqData.wheelSpeedLeftHz /
+                 WHEEL_TOOTH_COUNT) *
+                WHEEL_CIRCUMFERENCE_M *
+                3.6f;
+        }
+    }
+
+    /* Right Wheel */
+
+    if ((now - rightEdgeTick) > WHEEL_SIGNAL_TIMEOUT_MS ||
+        rightTicks == 0U)
+    {
+        g_daqData.wheelSpeedRightHz  = 0.0f;
+        g_daqData.wheelSpeedRightKph = 0.0f;
+    }
+    else
+    {
+        g_daqData.wheelSpeedRightHz =
+            (float)TIM2_CLOCK_HZ / (float)rightTicks;
+
+        if (g_daqData.wheelSpeedRightHz > MAX_WHEEL_HZ)
+        {
+            g_daqData.wheelSpeedRightHz  = 0.0f;
+            g_daqData.wheelSpeedRightKph = 0.0f;
+        }
+        else
+        {
+            g_daqData.wheelSpeedRightKph =
+                (g_daqData.wheelSpeedRightHz /
+                 WHEEL_TOOTH_COUNT) *
+                WHEEL_CIRCUMFERENCE_M *
+                3.6f;
+        }
+    }
+
+    /* Engine RPM */
+
+    if ((now - rpmEdgeTick) > WHEEL_SIGNAL_TIMEOUT_MS ||
+        rpmTicks == 0U)
+    {
+        g_daqData.engineRPM = 0U;
+    }
+    else
+    {
+        engineHz =
+            (float)TIM2_CLOCK_HZ /
+            (float)rpmTicks;
+
+        g_daqData.engineRPM =
+            (uint32_t)((engineHz * 60.0f) /
+                       ENGINE_PULSES_PER_REV);
+
+        if (g_daqData.engineRPM > MAX_ENGINE_RPM)
+        {
+            g_daqData.engineRPM = 0U;
+        }
+    }
     /* MPU6500 */
-    static float rollAngle = 0.0f;
+    /*static float rollAngle = 0.0f;
     static float pitchAngle = 0.0f;
     static float yawAngle = 0.0f;
 
@@ -222,7 +376,7 @@ void Acquisition_Task(void)
          * Sensor Z = Vehicle Up
          */
 
-        g_daqData.accelLongitudinal = ax;
+        /*g_daqData.accelLongitudinal = ax;
         g_daqData.accelLateral      = ay;
         g_daqData.accelVertical     = az;
 
@@ -277,7 +431,7 @@ void Acquisition_Task(void)
         Health_SetDeviceStatus(DEVICE_IMU,
                                DEVICE_ERROR);
     }
-    if (TCA9548A_SelectChannel(0) == HAL_OK)
+    /*if (TCA9548A_SelectChannel(0) == HAL_OK)
     {
         if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempLeft) == HAL_OK)
         {
@@ -326,5 +480,65 @@ void Acquisition_Task(void)
     {
         g_daqData.rideHeightMm = NAN;
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
+    }*/
+}
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+    uint32_t capture;
+
+    if (htim->Instance != TIM2)
+    {
+        return;
+    }
+
+    switch (htim->Channel)
+    {
+        case HAL_TIM_ACTIVE_CHANNEL_1:
+
+        	capture = HAL_TIM_ReadCapturedValue(htim,
+        	                                    TIM_CHANNEL_1);
+
+        	if (leftPreviousCapture != 0U)
+        	{
+        	    leftPeriodTicks = capture - leftPreviousCapture;
+        	}
+
+        	leftPreviousCapture = capture;
+        	leftLastEdgeTick = xTaskGetTickCountFromISR();
+
+            break;
+
+        case HAL_TIM_ACTIVE_CHANNEL_2:
+
+        	capture = HAL_TIM_ReadCapturedValue(htim,
+        	                                    TIM_CHANNEL_2);
+
+        	if (rightPreviousCapture != 0U)
+        	{
+        	    rightPeriodTicks = capture - rightPreviousCapture;
+        	}
+
+        	rightPreviousCapture = capture;
+        	rightLastEdgeTick = xTaskGetTickCountFromISR();
+
+            break;
+
+        case HAL_TIM_ACTIVE_CHANNEL_3:
+
+        	capture = HAL_TIM_ReadCapturedValue(htim,
+        	                                    TIM_CHANNEL_3);
+
+        	if (rpmPreviousCapture != 0U)
+        	{
+        	    rpmPeriodTicks = capture - rpmPreviousCapture;
+        	}
+
+        	rpmPreviousCapture = capture;
+        	rpmLastEdgeTick = xTaskGetTickCountFromISR();
+
+            break;
+
+        default:
+            break;
     }
 }

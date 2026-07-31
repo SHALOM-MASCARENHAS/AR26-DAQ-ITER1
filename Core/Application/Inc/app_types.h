@@ -63,8 +63,8 @@ typedef struct
     float wheelSpeedLeftKph;
     float wheelSpeedRightKph;
 
-    uint32_t wheelSpeedLeftHz;
-    uint32_t wheelSpeedRightHz;
+    float wheelSpeedLeftHz;
+    float wheelSpeedRightHz;
 
     /*-------------------------
       Engine

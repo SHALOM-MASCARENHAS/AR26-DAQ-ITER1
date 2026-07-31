@@ -115,7 +115,7 @@ int main(void)
 
   Acquisition_Init();
   Logger_Init();
-  Display_Init();
+  /*Display_Init();*/
   Innovation_Init();
   /* USER CODE END 2 */
 
