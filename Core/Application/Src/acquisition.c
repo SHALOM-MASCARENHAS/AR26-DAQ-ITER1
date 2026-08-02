@@ -31,6 +31,7 @@ typedef enum
 =============================*/
 
 static uint16_t adcRaw[ADC_CHANNEL_COUNT];
+uint32_t acquisitionTime = 0;
 /*=============================
     Wheel Speed
 =============================*/
@@ -48,7 +49,8 @@ static volatile uint32_t rpmPeriodTicks   = 0U;
 static volatile uint32_t leftLastEdgeTick  = 0U;
 static volatile uint32_t rightLastEdgeTick = 0U;
 static volatile uint32_t rpmLastEdgeTick   = 0U;
-
+static uint32_t lastVL53Tick = 0;
+static uint32_t lastMLXTick  = 0;
 #define TPS_MAX_VOLTAGE        2.85f
 static float ADC_To_Voltage(uint16_t raw)
 {
@@ -222,6 +224,7 @@ void Acquisition_Init(void)
 
 void Acquisition_Task(void)
 {
+	uint32_t startTime = HAL_GetTick();
     g_daqData.timestamp_ms = HAL_GetTick();
 
     /* Raw ADC values */
@@ -438,7 +441,10 @@ void Acquisition_Task(void)
         Health_SetDeviceStatus(DEVICE_IMU,
                                DEVICE_ERROR);
     }
-    I2C_Lock();
+    if ((now - lastMLXTick) >= 100U)
+    {
+        lastMLXTick = now;
+        I2C_Lock();
 
     if (TCA9548A_SelectChannel(0) == HAL_OK)
     {
@@ -492,27 +498,34 @@ void Acquisition_Task(void)
         Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT,
                                DEVICE_ERROR);
     }
-
     I2C_Unlock();
-    uint16_t distance;
-
-    I2C_Lock();
-
-    VL53L0X_Status_t vl53Status =
-        VL53L0X_ReadDistance(&distance);
-
-    I2C_Unlock();
-
-    if (vl53Status == VL53L0X_OK)
-    {
-        g_daqData.rideHeightMm = (float)distance;
-        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
     }
-    else
+
+    if ((now - lastVL53Tick) >= 50U)
     {
-        g_daqData.rideHeightMm = NAN;
-        Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
+        lastVL53Tick = now;
+
+        uint16_t distance;
+
+        I2C_Lock();
+
+        VL53L0X_Status_t vl53Status =
+            VL53L0X_ReadDistance(&distance);
+
+        I2C_Unlock();
+
+        if (vl53Status == VL53L0X_OK)
+        {
+            g_daqData.rideHeightMm = (float)distance;
+            Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
+        }
+        else
+        {
+            g_daqData.rideHeightMm = NAN;
+            Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
+        }
     }
+    acquisitionTime = HAL_GetTick() - startTime;
 }
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {

@@ -1,7 +1,7 @@
-../Core/Application/Src/acquisition.c:53:14:ADC_To_Voltage	1
-../Core/Application/Src/acquisition.c:58:14:ADC_To_BrakePressureBar	3
-../Core/Application/Src/acquisition.c:81:14:ADC_To_ThrottlePercent	3
-../Core/Application/Src/acquisition.c:99:14:ADC_To_BatteryVoltage	1
-../Core/Application/Src/acquisition.c:108:6:Acquisition_Init	13
-../Core/Application/Src/acquisition.c:223:6:Acquisition_Task	16
-../Core/Application/Src/acquisition.c:517:6:HAL_TIM_IC_CaptureCallback	9
+../Core/Application/Src/acquisition.c:55:14:ADC_To_Voltage	1
+../Core/Application/Src/acquisition.c:60:14:ADC_To_BrakePressureBar	3
+../Core/Application/Src/acquisition.c:83:14:ADC_To_ThrottlePercent	3
+../Core/Application/Src/acquisition.c:101:14:ADC_To_BatteryVoltage	1
+../Core/Application/Src/acquisition.c:110:6:Acquisition_Init	13
+../Core/Application/Src/acquisition.c:225:6:Acquisition_Task	18
+../Core/Application/Src/acquisition.c:530:6:HAL_TIM_IC_CaptureCallback	9
