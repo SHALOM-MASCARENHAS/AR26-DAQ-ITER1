@@ -250,6 +250,7 @@ void StartLoggerTask(void *argument)
 void StartDisplayTask(void *argument)
 {
   /* USER CODE BEGIN StartDisplayTask */
+	Display_Init();
   /* Infinite loop */
   for(;;)
   {

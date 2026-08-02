@@ -1,7 +1,7 @@
 #include "lcd_i2c.h"
 #include "i2c.h"
 #include "tca9548a.h"
-
+#include "i2c_manager.h"
 /*----------------------------------------------------------
  * Configuration
  *---------------------------------------------------------*/
@@ -49,14 +49,22 @@ static HAL_StatusTypeDef LCD_DataInternal(uint8_t data);
 
 static HAL_StatusTypeDef LCD_Select(void)
 {
-    return TCA9548A_SelectChannel(LCD_TCA_CHANNEL);
+    I2C_Lock();
+
+    if (TCA9548A_SelectChannel(LCD_TCA_CHANNEL) != HAL_OK)
+    {
+        I2C_Unlock();
+        return HAL_ERROR;
+    }
+
+    return HAL_OK;
 }
 
 static void LCD_Deselect(void)
 {
     TCA9548A_DisableAll();
+    I2C_Unlock();
 }
-
 /*----------------------------------------------------------
  * Low Level Write
  *---------------------------------------------------------*/

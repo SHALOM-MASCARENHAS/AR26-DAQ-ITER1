@@ -37,7 +37,9 @@ Core/Drivers/LCD/lcd_i2c.o: ../Core/Drivers/LCD/lcd_i2c.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Drivers/TCA9548A/tca9548a.h
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Drivers/TCA9548A/tca9548a.h \
+ ../Core/Application/Inc/i2c_manager.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 ../Core/Drivers/LCD/lcd_i2c.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -79,3 +81,5 @@ Core/Drivers/LCD/lcd_i2c.o: ../Core/Drivers/LCD/lcd_i2c.c \
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Core/Drivers/TCA9548A/tca9548a.h:
+../Core/Application/Inc/i2c_manager.h:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:

@@ -5,4 +5,4 @@
 ../Core/Src/freertos.c:212:6:StartAcquisitionTask	1
 ../Core/Src/freertos.c:231:6:StartLoggerTask	1
 ../Core/Src/freertos.c:250:6:StartDisplayTask	1
-../Core/Src/freertos.c:269:6:StartInnovationTask	1
+../Core/Src/freertos.c:270:6:StartInnovationTask	1

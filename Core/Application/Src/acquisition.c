@@ -12,7 +12,7 @@
 #include "i2c.h"
 #include "FreeRTOS.h"
 #include "task.h"
-
+#include "i2c_manager.h"
 /*=============================
     ADC Channel Indices
 =============================*/
@@ -358,13 +358,20 @@ void Acquisition_Task(void)
 
     float temperature;
 
-    if (MPU6500_ReadAll(&ax,
+    I2C_Lock();
+
+    HAL_StatusTypeDef imuStatus =
+        MPU6500_ReadAll(&ax,
                         &ay,
                         &az,
                         &gx,
                         &gy,
                         &gz,
-                        &temperature) == HAL_OK)
+                        &temperature);
+
+    I2C_Unlock();
+
+    if (imuStatus == HAL_OK)
     {
         /*
          * IMPORTANT:
@@ -431,16 +438,21 @@ void Acquisition_Task(void)
         Health_SetDeviceStatus(DEVICE_IMU,
                                DEVICE_ERROR);
     }
+    I2C_Lock();
+
     if (TCA9548A_SelectChannel(0) == HAL_OK)
     {
         if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempLeft) == HAL_OK)
         {
-            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_OK);
+            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT,
+                                   DEVICE_OK);
         }
         else
         {
             g_daqData.tireTempLeft = NAN;
-            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+
+            Health_SetDeviceStatus(DEVICE_MLX90614_LEFT,
+                                   DEVICE_ERROR);
         }
 
         TCA9548A_DisableAll();
@@ -448,18 +460,27 @@ void Acquisition_Task(void)
     else
     {
         g_daqData.tireTempLeft = NAN;
-        Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
+
+        Health_SetDeviceStatus(DEVICE_MLX90614_LEFT,
+                               DEVICE_ERROR);
     }
+
+    I2C_Unlock();
+    I2C_Lock();
+
     if (TCA9548A_SelectChannel(1) == HAL_OK)
     {
         if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempRight) == HAL_OK)
         {
-            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_OK);
+            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT,
+                                   DEVICE_OK);
         }
         else
         {
             g_daqData.tireTempRight = NAN;
-            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+
+            Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT,
+                                   DEVICE_ERROR);
         }
 
         TCA9548A_DisableAll();
@@ -467,11 +488,22 @@ void Acquisition_Task(void)
     else
     {
         g_daqData.tireTempRight = NAN;
-        Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
+
+        Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT,
+                               DEVICE_ERROR);
     }
+
+    I2C_Unlock();
     uint16_t distance;
 
-    if (VL53L0X_ReadDistance(&distance) == VL53L0X_OK)
+    I2C_Lock();
+
+    VL53L0X_Status_t vl53Status =
+        VL53L0X_ReadDistance(&distance);
+
+    I2C_Unlock();
+
+    if (vl53Status == VL53L0X_OK)
     {
         g_daqData.rideHeightMm = (float)distance;
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);

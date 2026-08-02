@@ -4,4 +4,4 @@
 ../Core/Application/Src/acquisition.c:99:14:ADC_To_BatteryVoltage	1
 ../Core/Application/Src/acquisition.c:108:6:Acquisition_Init	13
 ../Core/Application/Src/acquisition.c:223:6:Acquisition_Task	16
-../Core/Application/Src/acquisition.c:485:6:HAL_TIM_IC_CaptureCallback	9
+../Core/Application/Src/acquisition.c:517:6:HAL_TIM_IC_CaptureCallback	9
