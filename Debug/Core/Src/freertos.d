@@ -50,7 +50,9 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Core/Application/Inc/app_config.h ../Core/Application/Inc/health.h \
  ../Core/Application/Inc/app_types.h \
  ../Core/Application/Inc/acquisition.h ../Core/Application/Inc/logger.h \
- ../Core/Application/Inc/display.h ../Core/Application/Inc/innovation.h
+ ../Core/Application/Inc/display.h ../Core/Application/Inc/innovation.h \
+ ../Core/Application/Inc/i2c_manager.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -107,3 +109,5 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Application/Inc/logger.h:
 ../Core/Application/Inc/display.h:
 ../Core/Application/Inc/innovation.h:
+../Core/Application/Inc/i2c_manager.h:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:

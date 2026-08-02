@@ -107,7 +107,7 @@ static float ADC_To_BatteryVoltage(uint16_t raw)
 
 void Acquisition_Init(void)
 {
-	/*if (TCA9548A_Init() == HAL_OK)
+	if (TCA9548A_Init() == HAL_OK)
 	{
 	    Health_SetDeviceStatus(DEVICE_I2C_MUX, DEVICE_OK);
 
@@ -155,7 +155,7 @@ void Acquisition_Init(void)
 
 	    Health_SetDeviceStatus(DEVICE_MLX90614_LEFT, DEVICE_ERROR);
 	    Health_SetDeviceStatus(DEVICE_MLX90614_RIGHT, DEVICE_ERROR);
-	}*/
+	}
 
     if (HAL_ADC_Start_DMA(&hadc1,
                           (uint32_t *)adcRaw,
@@ -194,7 +194,7 @@ void Acquisition_Init(void)
         Health_SetDeviceStatus(DEVICE_ENGINE_RPM,
                                DEVICE_ERROR);
     }
-   /* if (MPU6500_Init() == HAL_OK)
+   if (MPU6500_Init() == HAL_OK)
     {
         if (MPU6500_CalibrateGyro() == HAL_OK)
         {
@@ -210,14 +210,14 @@ void Acquisition_Init(void)
         Health_SetDeviceStatus(DEVICE_IMU, DEVICE_ERROR);
     }
 
-   /* if (VL53L0X_Init(&hi2c1) == VL53L0X_OK)
+    if (VL53L0X_Init(&hi2c1) == VL53L0X_OK)
     {
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_OK);
     }
     else
     {
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
-    }*/
+    }
 }
 
 void Acquisition_Task(void)
@@ -342,7 +342,7 @@ void Acquisition_Task(void)
         }
     }
     /* MPU6500 */
-    /*static float rollAngle = 0.0f;
+    static float rollAngle = 0.0f;
     static float pitchAngle = 0.0f;
     static float yawAngle = 0.0f;
 
@@ -376,7 +376,7 @@ void Acquisition_Task(void)
          * Sensor Z = Vehicle Up
          */
 
-        /*g_daqData.accelLongitudinal = ax;
+        g_daqData.accelLongitudinal = ax;
         g_daqData.accelLateral      = ay;
         g_daqData.accelVertical     = az;
 
@@ -431,7 +431,7 @@ void Acquisition_Task(void)
         Health_SetDeviceStatus(DEVICE_IMU,
                                DEVICE_ERROR);
     }
-    /*if (TCA9548A_SelectChannel(0) == HAL_OK)
+    if (TCA9548A_SelectChannel(0) == HAL_OK)
     {
         if (MLX90614_ReadObjectTemperature(&g_daqData.tireTempLeft) == HAL_OK)
         {
@@ -480,7 +480,7 @@ void Acquisition_Task(void)
     {
         g_daqData.rideHeightMm = NAN;
         Health_SetDeviceStatus(DEVICE_VL53L0X, DEVICE_ERROR);
-    }*/
+    }
 }
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {

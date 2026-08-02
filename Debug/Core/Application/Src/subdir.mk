@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Application/Src/acquisition.c \
 ../Core/Application/Src/display.c \
 ../Core/Application/Src/health.c \
+../Core/Application/Src/i2c_manager.c \
 ../Core/Application/Src/innovation.c \
 ../Core/Application/Src/logger.c \
 ../Core/Application/Src/shared_data.c 
@@ -16,6 +17,7 @@ OBJS += \
 ./Core/Application/Src/acquisition.o \
 ./Core/Application/Src/display.o \
 ./Core/Application/Src/health.o \
+./Core/Application/Src/i2c_manager.o \
 ./Core/Application/Src/innovation.o \
 ./Core/Application/Src/logger.o \
 ./Core/Application/Src/shared_data.o 
@@ -24,6 +26,7 @@ C_DEPS += \
 ./Core/Application/Src/acquisition.d \
 ./Core/Application/Src/display.d \
 ./Core/Application/Src/health.d \
+./Core/Application/Src/i2c_manager.d \
 ./Core/Application/Src/innovation.d \
 ./Core/Application/Src/logger.d \
 ./Core/Application/Src/shared_data.d 
@@ -36,7 +39,7 @@ Core/Application/Src/%.o Core/Application/Src/%.su Core/Application/Src/%.cyclo:
 clean: clean-Core-2f-Application-2f-Src
 
 clean-Core-2f-Application-2f-Src:
-	-$(RM) ./Core/Application/Src/acquisition.cyclo ./Core/Application/Src/acquisition.d ./Core/Application/Src/acquisition.o ./Core/Application/Src/acquisition.su ./Core/Application/Src/display.cyclo ./Core/Application/Src/display.d ./Core/Application/Src/display.o ./Core/Application/Src/display.su ./Core/Application/Src/health.cyclo ./Core/Application/Src/health.d ./Core/Application/Src/health.o ./Core/Application/Src/health.su ./Core/Application/Src/innovation.cyclo ./Core/Application/Src/innovation.d ./Core/Application/Src/innovation.o ./Core/Application/Src/innovation.su ./Core/Application/Src/logger.cyclo ./Core/Application/Src/logger.d ./Core/Application/Src/logger.o ./Core/Application/Src/logger.su ./Core/Application/Src/shared_data.cyclo ./Core/Application/Src/shared_data.d ./Core/Application/Src/shared_data.o ./Core/Application/Src/shared_data.su
+	-$(RM) ./Core/Application/Src/acquisition.cyclo ./Core/Application/Src/acquisition.d ./Core/Application/Src/acquisition.o ./Core/Application/Src/acquisition.su ./Core/Application/Src/display.cyclo ./Core/Application/Src/display.d ./Core/Application/Src/display.o ./Core/Application/Src/display.su ./Core/Application/Src/health.cyclo ./Core/Application/Src/health.d ./Core/Application/Src/health.o ./Core/Application/Src/health.su ./Core/Application/Src/i2c_manager.cyclo ./Core/Application/Src/i2c_manager.d ./Core/Application/Src/i2c_manager.o ./Core/Application/Src/i2c_manager.su ./Core/Application/Src/innovation.cyclo ./Core/Application/Src/innovation.d ./Core/Application/Src/innovation.o ./Core/Application/Src/innovation.su ./Core/Application/Src/logger.cyclo ./Core/Application/Src/logger.d ./Core/Application/Src/logger.o ./Core/Application/Src/logger.su ./Core/Application/Src/shared_data.cyclo ./Core/Application/Src/shared_data.d ./Core/Application/Src/shared_data.o ./Core/Application/Src/shared_data.su
 
 .PHONY: clean-Core-2f-Application-2f-Src
 

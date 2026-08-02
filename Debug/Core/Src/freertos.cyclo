@@ -1,8 +1,8 @@
-../Core/Src/freertos.c:109:6:vApplicationStackOverflowHook	1
-../Core/Src/freertos.c:118:6:vApplicationMallocFailedHook	1
-../Core/Src/freertos.c:138:6:MX_FREERTOS_Init	1
-../Core/Src/freertos.c:192:6:StartDefaultTask	1
-../Core/Src/freertos.c:211:6:StartAcquisitionTask	1
-../Core/Src/freertos.c:230:6:StartLoggerTask	1
-../Core/Src/freertos.c:249:6:StartDisplayTask	1
-../Core/Src/freertos.c:268:6:StartInnovationTask	1
+../Core/Src/freertos.c:110:6:vApplicationStackOverflowHook	1
+../Core/Src/freertos.c:119:6:vApplicationMallocFailedHook	1
+../Core/Src/freertos.c:139:6:MX_FREERTOS_Init	1
+../Core/Src/freertos.c:193:6:StartDefaultTask	1
+../Core/Src/freertos.c:212:6:StartAcquisitionTask	1
+../Core/Src/freertos.c:231:6:StartLoggerTask	1
+../Core/Src/freertos.c:250:6:StartDisplayTask	1
+../Core/Src/freertos.c:269:6:StartInnovationTask	1

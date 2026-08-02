@@ -3,5 +3,5 @@
 ../Core/Application/Src/acquisition.c:81:14:ADC_To_ThrottlePercent	24	static
 ../Core/Application/Src/acquisition.c:99:14:ADC_To_BatteryVoltage	16	static
 ../Core/Application/Src/acquisition.c:108:6:Acquisition_Init	8	static
-../Core/Application/Src/acquisition.c:223:6:Acquisition_Task	40	static
+../Core/Application/Src/acquisition.c:223:6:Acquisition_Task	112	static
 ../Core/Application/Src/acquisition.c:485:6:HAL_TIM_IC_CaptureCallback	24	static
